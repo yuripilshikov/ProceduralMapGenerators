@@ -55,3 +55,38 @@ std::vector<int> smoothMap(int width, int height,
 	}
 	return smooth;
 }
+
+std::vector<int> randomWalk(int width, int height, int steps)
+{
+	int size = width * height;
+	std::vector<int> myMap(size);
+
+	for(int j = 0; j < size; ++j)
+		myMap[j] = 0;
+	
+	int coord = width/2 + height * width / 2;
+
+	for(int i = 0; i < steps; ++i)
+	{
+		int dir = rand() % 4;
+		switch(dir)
+		{
+			case 0:
+				if(coord + 1 < size) ++coord;
+				break;
+			case 1:
+				if(coord - 1 > 0) --coord;
+				break;
+			case 2:
+				if(coord + width < size) coord += width;
+				break;
+			case 3:
+				if(coord - width > 0) coord -= width;
+				break;
+			default:
+				break;
+		}
+		myMap[coord] = 1;
+	}
+	return myMap;
+}
